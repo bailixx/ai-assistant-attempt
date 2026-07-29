@@ -17,7 +17,7 @@ if not api_key:
 # 如果你买的是 DeepSeek 等其他兼容接口，只需要取消下面 base_url 的注释并填入正确的地址
 client = OpenAI(
     api_key=api_key,
-    # base_url="https://api.deepseek.com/v1"  # 如果用第三方大模型，把这行最前面的 # 删掉
+    base_url="https://api.deepseek.com/v1"  # 如果用第三方大模型，把这行最前面的 # 删掉
 )
 
 # 第三步：封装 Agent 的首次通信逻辑
@@ -26,7 +26,7 @@ def run_first_test():
     
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo", # 如果用其他模型，比如 deepseek，请改成 "deepseek-chat"
+            model="deepseek-chat", # 如果用其他模型，比如 deepseek，请改成 "deepseek-chat"
             messages=[
                 # System 是给大模型的“人设”和“系统级指令”
                 {"role": "system", "content": "你是一个极简、干脆的硬核 AI 助手。"},
