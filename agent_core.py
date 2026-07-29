@@ -20,7 +20,7 @@ client = OpenAI(
     # base_url="https://api.deepseek.com/v1"  # 如果用第三方大模型，把这行最前面的 # 删掉
 )
 
-# 第三步：封装 Agent 的首次通信逻辑,,
+# 第三步：封装 Agent 的首次通信逻辑
 def run_first_test():
     print(">>> 引擎点火完毕，正在向云端大模型发送请求...\n")
     
