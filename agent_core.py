@@ -67,4 +67,4 @@ def run_first_test():
         print(f"连接失败，报错信息: {e}")
 
 if __name__ == "__main__":
-    run_agent()
+    run_first_test()
