@@ -22,6 +22,13 @@ client = OpenAI(
     base_url="https://api.deepseek.com/v1"  # 如果用第三方大模型，把这行最前面的 # 删掉
 )
 
+# 新增点 1：写一个纯本地的 Python 函数（工具）
+def get_system_time():
+    """获取本地机器的当前准确时间"""
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"\n[本地系统运行中...] 工具被触发，获取到本地时间: {current_time}")
+    return current_time
+
 # 第三步：封装 Agent 的首次通信逻辑
 def run_first_test():
     print(">>> 引擎点火完毕，正在向云端大模型发送请求...\n")
@@ -35,6 +42,7 @@ def run_first_test():
                 # User 是你作为用户发出的指令
                 {"role": "user", "content": "用一句话向我证明，你已经成功连接到了我的本地开发环境。"}
             ],
+            # 新增点 2：把工具的“说明书”递给大模型
             temperature=0.7 # 控制回答的随机性，0 最严谨，1 最发散
         )
         
