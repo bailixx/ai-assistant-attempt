@@ -50,11 +50,12 @@ def run_first_test():
                     "description": "当用户询问当前时间、今天几号等问题时，调用此工具获取本地系统的准确时间。"
                 }
             }],
+            tool_choice="required",# <--- 就是新增这一行！剥夺它的自主决定权，强制它必须用工具
             temperature=0.7 # 控制回答的随机性，0 最严谨，1 最发散
         )
         
         message = response.choices[0].message
-        
+
         if message.tool_calls:
             print("\n====== Agent 思考过程 ======")
             print("大模型决定不直接回答，而是要求调用本地工具！")
