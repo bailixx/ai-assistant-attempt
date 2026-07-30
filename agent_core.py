@@ -53,15 +53,18 @@ def run_first_test():
             temperature=0.7 # 控制回答的随机性，0 最严谨，1 最发散
         )
         
-        # 提取并打印最核心的回答文本
-        reply = response.choices[0].message.content
-        print("====== 收到大模型回传信号 ======")
-        print(reply)
-        print("=================================")
-        
+        if message.tool_calls:
+            print("\n====== Agent 思考过程 ======")
+            print("大模型决定不直接回答，而是要求调用本地工具！")
+            print(f"它想要调用的工具名称是: {message.tool_calls[0].function.name}")
+            print("=============================")
+            
+            # 这里本来应该写自动执行函数的代码，我们先观察它的决策
+        else:
+            print(f"大模型直接回复: {message.content}")
+            
     except Exception as e:
         print(f"连接失败，报错信息: {e}")
 
-# Python 工程标准起手式
 if __name__ == "__main__":
-    run_first_test()
+    run_agent()
