@@ -12,7 +12,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise ValueError("严重错误：找不到 API Key，请检查 .env 文件是否配置正确！")
 
-# 第二步：初始化通信客户端 (引擎核心)灌灌灌灌
+# 第二步：初始化通信客户端 (引擎核心)
 # 默认这是连接 OpenAI 的标准写法。
 # 如果你买的是 DeepSeek 等其他兼容接口，只需要取消下面 base_url 的注释并填入正确的地址
 client = OpenAI(
