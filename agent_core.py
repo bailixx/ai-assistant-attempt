@@ -53,6 +53,8 @@ def run_first_test():
             temperature=0.7 # 控制回答的随机性，0 最严谨，1 最发散
         )
         
+        message = response.choices[0].message
+        
         if message.tool_calls:
             print("\n====== Agent 思考过程 ======")
             print("大模型决定不直接回答，而是要求调用本地工具！")
