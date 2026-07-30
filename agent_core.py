@@ -43,6 +43,13 @@ def run_first_test():
                 {"role": "user", "content": "用一句话向我证明，你已经成功连接到了我的本地开发环境。"}
             ],
             # 新增点 2：把工具的“说明书”递给大模型
+            tools=[{
+                "type": "function",
+                "function": {
+                    "name": "get_system_time",
+                    "description": "当用户询问当前时间、今天几号等问题时，调用此工具获取本地系统的准确时间。"
+                }
+            }],
             temperature=0.7 # 控制回答的随机性，0 最严谨，1 最发散
         )
         
