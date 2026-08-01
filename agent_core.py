@@ -37,9 +37,8 @@ def run_first_test():
         response = client.chat.completions.create(
             model="deepseek-chat", # 如果用其他模型，比如 deepseek，请改成 "deepseek-chat"
             messages=[
-                # System 是给大模型的“人设”和“系统级指令”
                 {"role": "system", "content": "你是一个极简、干脆的硬核 AI 助手。"},
-                # User 是你作为用户发出的指令
+
                 {"role": "user", "content": "用一句话向我证明，你已经成功连接到了我的本地开发环境。"}
             ],
             # 新增点 2：把工具的“说明书”递给大模型
