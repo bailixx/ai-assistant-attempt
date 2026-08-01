@@ -22,6 +22,12 @@ client = OpenAI(
     base_url="https://api.deepseek.com/v1"  # 如果用第三方大模型，把这行最前面的 # 删掉
 )
 
+# 咱们的本地工具函数
+def get_system_time():
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"\n[本地系统] 🤖 咔哒！工具被真实触发，读取到本地时间: {current_time}")
+    return current_time
+    
 # 新增点 1：写一个纯本地的 Python 函数（工具）
 def get_system_time():
     """获取本地机器的当前准确时间"""
