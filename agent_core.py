@@ -56,16 +56,31 @@ def run_first_test():
         
         message = response.choices[0].message
 
-        if message.tool_calls:
-            print("\n====== Agent 思考过程 ======")
-            print("大模型决定不直接回答，而是要求调用本地工具！")
-            print(f"它想要调用的工具名称是: {message.tool_calls[0].function.name}")
-            print("=============================")
-            
-            # 这里本来应该写自动执行函数的代码，我们先观察它的决策
-        else:
-            print(f"大模型直接回复: {message.content}")
-            
+        if response.choices[0].message.tool_calls:
+                tool_call = response.choices[0].message.tool_calls[0]
+                print("\n====== Agent 思考过程 ======")
+                print(f"大模型没有瞎编，它请求调用本地工具: {tool_call.function.name}")
+                
+                # 1. 真实执行本地函数
+            if tool_call.function.name == "get_system_time":
+                tool_result = get_system_time()
+                
+                # 2. 把函数的运行结果打包，追加到历史记录里
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call.id,
+                    "content": tool_result
+                })
+                
+                print("====== 正在将真实数据传回云端大脑 ======\n")
+                
+                # 3. 第二次通信：让大模型根据真实时间生成最终的人类语言回答
+                second_response = client.chat.completions.create(
+                    model="deepseek-chat",
+                    messages=messages
+                )
+                
+                print(f"🌟 大模型最终回复: {second_response.choices[0].message.content}")
     except Exception as e:
         print(f"连接失败，报错信息: {e}")
 
